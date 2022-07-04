@@ -25,6 +25,7 @@ import 'ScreenRegister.dart';
 
 // ignore: must_be_immutable
 class ScreenLogin extends StatefulWidget {
+  // Dữ liệu
   final String title;
   bool isLoading = false;
 
@@ -36,13 +37,22 @@ class ScreenLogin extends StatefulWidget {
 
 class _ScreenLoginState extends State<ScreenLogin> {
   String inReview = 'false';
-  // String inReview = "true";
+  // String inReview = "true";\
+
+  // Khởi tạo đối tượng loginBloc
   LoginBloc loginBloc;
 
+  // controller của text field
   TextEditingController usernameTextController = TextEditingController();
   TextEditingController passwordTextController = TextEditingController();
+
+  // validate
   bool _validateUserName = false, _validatePassword = false;
+
+  // khởi tạo đối tượng AppUntil hỗ trợ ứng dụng
   AppUtil appUtil = AppUtil();
+
+  //
   bool isShowRegisterButton = false;
   bool isRememberPasswordChecked = true;
 
@@ -52,6 +62,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
+  // Khai báo focusnode (click focus vào textfield)
   final FocusNode _usernameFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
 
@@ -71,6 +82,7 @@ class _ScreenLoginState extends State<ScreenLogin> {
   Constants constants = Constants();
   loadLoginInfo(context) async {
     try {
+      // Lấy userName & password từ local
       final String userName =
           await AppUtil.getFromSetting(Constants.PREF_USERNAME);
       final String password =

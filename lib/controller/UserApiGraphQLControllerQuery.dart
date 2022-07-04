@@ -23,8 +23,8 @@ class UserApiGraphQLControllerQuery extends BaseApiGraphQLController {
     QueryResult result = await getQuery(context, queryGetNewsArticles,
         variables: <String, dynamic>{
           'page': page,
-          'pageSize': pageSize,
           'filtered': filterInput,
+          'pageSize': pageSize,
           'sorted': sortedInput
         });
     AppUtil.showPrint(

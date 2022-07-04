@@ -915,6 +915,7 @@ class AppUtil {
     return '${formatCurrency.format(str)}';
   }
 
+// ============== TIME
   static Widget widgetTimeClock(DateTime dateTime) => Container(
       width: 85,
       padding: const EdgeInsets.only(top: 5, bottom: 5, left: 5, right: 5),
@@ -990,6 +991,7 @@ class AppUtil {
           ],
         ),
       );
+
   static Future<void> showPopup(
       BuildContext context, String title, String content) async {
     // flutter defined function

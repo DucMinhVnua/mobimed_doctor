@@ -34,10 +34,13 @@ class BaseApiGraphQLController {
         String accessToken =
             await AppUtil.getFromSetting(Constants.PREF_ACCESSTOKEN);
         final _httpLink = HttpLink(endpoint);
+
+        // Xử lý add token
         final _authLink = AuthLink(
           getToken: () async => 'Bearer $accessToken',
           // 'Content-Type': 'application/json; charset=utf-8',
         );
+
         Link link = _authLink.concat(_httpLink);
         log("### accessToken: " + "Bearer " + accessToken);
 
@@ -133,7 +136,10 @@ class BaseApiGraphQLController {
 
     bool isConnect = false;
     try {
+      // Tim kiem google.com
       final result = await InternetAddress.lookup('google.com');
+
+      // check internet
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         AppUtil.showPrint('connected');
         isConnect = true;

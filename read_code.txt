@@ -1,16 +1,3 @@
 =============
-- LoginBloc (main.dart)
-- LoginRepositoryImpl (login_bloc.dart)
-- AppUtil (LoginRepository.dart)
-- widgetTimeClock(đang đọc) (AppUtil.dart)
-=============
-- Bloc của thông tin người dùng (main.dart)
-
-=============
-- AppUtil (main.dart)
-
-=============
-- Constants (main.dart)
-
-=============
-- setUpFirebase (main.dart)
+ScreenLogin(main.dart)
+_onLoginButtonPressed(ScreenLogin.dart)

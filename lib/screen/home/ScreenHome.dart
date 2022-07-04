@@ -58,6 +58,7 @@ class _ScreenHomeState extends State<ScreenHome> with WidgetsBindingObserver {
   initState() {
     super.initState();
 
+    // Bloc lưu trữ của user info
     userInfoBloc = BlocProvider.of<UserInfoBloc>(context);
 
     //Start load userinfo
@@ -73,22 +74,37 @@ class _ScreenHomeState extends State<ScreenHome> with WidgetsBindingObserver {
     try {
       final ApiGraphQLControllerQuery apiController =
           ApiGraphQLControllerQuery();
+
+      // lấy dữ liệu account info
       final QueryResult result =
           await apiController.requestGetAccountInfo(context);
+
+      // nếu null trả về luôn
       if (result == null) return;
       AppUtil.showLog('Response requestGetAccountInfo: ${result.data}');
+
+      // nếu không null đưa result vào processResponse để sử lý dữ liệu với modal
       final responseData = appUtil.processResponse(result);
+
+      // sau khi sử lý xong sẽ kiểm tra nếu nó không null thì lấy code, massage, data từ responseData ra.
       if (responseData != null) {
         final int code = responseData.code;
         final String message = responseData.message;
         final Map data = responseData.data;
+
+        // rồi lấy code ra check nếu code == 0 (login thành công)
         if (code == 0) {
-          //Login thành công
+          // thì đưa data vào UserInfoData.fromJson để xử lý dữ liệu covert sang kiểu dart
           final UserInfoData userData = UserInfoData.fromJson(data);
+
+          // sau khi convert xong setState nameUser = fullName được lấu từ userData.
+          // userId được lấu từ userData.
           setState(() {
             nameUser = userData.base.fullName;
             AppUtil.userId = userData.id;
 
+            // kiểm tra nếu avatar trong userData mà rỗng or length > 8 thì imgAvatar được ghép đường dẫn
+            // còn không set imageAvatar default
             if (userData.base.avatar != null &&
                 userData.base.avatar.length > 8) {
               imgAvatar = dotenv.env['BASE_API_URL_AVATAR_DOCTOR'] +
@@ -100,6 +116,8 @@ class _ScreenHomeState extends State<ScreenHome> with WidgetsBindingObserver {
                   : 'assets/avatar/icon_bs_nu.png';
             }
           });
+
+          // thiết lập tín hiệu
           setupSignal();
         } else {
           AppUtil.showLog(
